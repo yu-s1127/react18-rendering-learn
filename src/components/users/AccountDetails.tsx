@@ -1,22 +1,15 @@
 import useSWR from 'swr';
 import type { Account } from '../../types/types';
-import { Loading } from '../Loading';
 import { LabelInput } from './LabelInput';
 interface Props {
   userId: number;
 }
 export function AccountDetails({ userId }: Props) {
-  const { data: account, error } = useSWR<Account, Error>(
-    `${import.meta.env.VITE_API_BASE}/accounts/${userId}?sleep=1000`
+  const { data } = useSWR<Account, Error>(
+    `${import.meta.env.VITE_BASE_API_URL}/accounts/${userId}?sleep=1000`
   );
 
-  if (error) {
-    return <div>{error.message}</div>;
-  }
-
-  if (!account) {
-    return <Loading />;
-  }
+  const account = data!;
 
   return (
     <div className='row'>
