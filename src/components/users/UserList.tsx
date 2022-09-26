@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import useSWR from 'swr';
 import type { Account } from '../../types/types';
 import { UserDetails } from './UserDetails';
 
 export function UserList() {
+  const [isPending, startTransition] = useTransition();
   const [selectedUser, setSelectedUser] = useState<Account | null>(null);
+  const [selectedUserId, setSelectedUserId] = useState(NaN);
   const { data } = useSWR<Account[], Error>(
     `${import.meta.env.VITE_BASE_API_URL}/accounts`
   );
@@ -24,8 +26,12 @@ export function UserList() {
             >
               <button
                 className='btn shadow-none'
-                onClick={() => setSelectedUser(user)}
+                onClick={() => {
+                  setSelectedUserId(user.id);
+                  startTransition(() => setSelectedUser(user));
+                }}
               >
+                {isPending && selectedUserId === user.id && '⏳ '}
                 {user.firstname}
                 &nbsp;
                 {user.surname}

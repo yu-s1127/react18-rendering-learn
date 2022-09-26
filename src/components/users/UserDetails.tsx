@@ -13,17 +13,9 @@ export function UserDetails({ userId, movieId }: Props) {
   return (
     <div>
       <h4 className='text-center mt-5'>User details</h4>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={<Loading />}>
-          <AccountDetails userId={userId} />
-        </Suspense>
-      </ErrorBoundary>
+      <AccountDetails userId={userId} />
       <h4 className='text-center mt-5'>Favorite movie</h4>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={<Loading />}>
-          <MovieDetails movieId={movieId} />
-        </Suspense>
-      </ErrorBoundary>
+      <MovieDetails movieId={movieId} />
     </div>
   );
 }
