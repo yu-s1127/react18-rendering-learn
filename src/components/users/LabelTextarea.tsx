@@ -7,9 +7,9 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 
 export function LabelTextarea({ label, value, ...rest }: Props) {
   return (
-    <div className="mb-3">
-      <label className="form-label">{label}</label>
-      <textarea className="form-control" value={value} {...rest} />
+    <div className='mb-3'>
+      <label className='form-label'>{label}</label>
+      <textarea className='form-control' value={value} {...rest} />
     </div>
   );
 }
